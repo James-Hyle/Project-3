@@ -62,6 +62,7 @@ public class TMSimulator {
 
     public void run(TM tm, String input) {
         tm.loadInput(input);
+        int sum = 0;
 
         // initial state
         TMState current = tm.getState("0");
@@ -76,8 +77,11 @@ public class TMSimulator {
                 System.out.println("Halting: no transition.");
                 break;
             }
-
-            tm.writeTape(t.getWriteSymbol().charAt(0));
+            char writeSymbol = t.getWriteSymbol().charAt(0);
+            if (writeSymbol != currentSymbol) {
+                tm.writeTape(writeSymbol);
+                sum = sum - Character.getNumericValue(currentSymbol) + Character.getNumericValue(writeSymbol);
+            }
             tm.moveHead(t.getMoveDirection());
             current = tm.getState(t.getTo());
 
@@ -87,6 +91,6 @@ public class TMSimulator {
             }
         }
         // print output of machine
-        System.out.println("Final tape: " + tm.toString() + "\nTape Length:" +tm.getTapeLength() + "\nSum of symbols: " + tm.getSumOfSymbols());
+        System.out.println("Final tape: " + tm.toString() + "\nTape Length:" +tm.getTapeLength() + "\nSum of symbols: " + sum);
     }
 }
