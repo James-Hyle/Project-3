@@ -1,43 +1,92 @@
 import model.TM;
 import model.TMState;
+import model.TMTransition;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class TMSimulator {
+
     public static void main(String[] args) {
         String filePath = args[0];
         String line;
         String comma = ",";
-        ArrayList<String> transitions = new ArrayList<String>();
+        ArrayList<String> transitions = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+
             int numStates = Integer.parseInt(br.readLine());
             int alphabetSize = Integer.parseInt(br.readLine());
             TM tm = new TM(numStates, alphabetSize);
-            for(int i = 1; i <= alphabetSize; i++) {
-                tm.addSigma((char) i);
+            int gammaSize = alphabetSize + 1;
+
+            for (int i = 0; i <= alphabetSize; i++) {
+                tm.addSigma("" + i);
             }
+
             while ((line = br.readLine()) != null) {
-                // Use comma as separator
                 transitions.add(line);
             }
 
-            for(int numState = 0; numState < numStates; numState++) {
-                TMState s = new TMState(String.valueOf(numState));
-                tm.addState(s);
-                for(int i = 1; i <= alphabetSize; i++) {
-                    String[] transitionInfo = transitions.get(i - 1).split(comma);
-                    tm.addTransition(s.getName(), (char) i, transitionInfo[0], transitionInfo[1], transitionInfo[2]);
-                }
+            for (int s = 0; s < numStates; s++) {
+                tm.addState(new TMState(String.valueOf(s)));
             }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+
+            tm.setAccept(String.valueOf(numStates - 1));
+
+            for (int i = 0; i < transitions.size(); i++) {
+
+                int currentStateIndex = i / gammaSize;
+                int currentSymbolIndex = i % gammaSize;
+
+                String currentState = String.valueOf(currentStateIndex);
+                String currentSymbol = String.valueOf(currentSymbolIndex);
+
+                String[] info = transitions.get(i).split(comma);
+                String nextState = info[0];
+                String writeSymbol = info[1];
+                String move = info[2];
+
+                tm.addTransitions(currentState, currentSymbol, nextState, writeSymbol, move);
+            }
+
+            String input = "";
+            new TMSimulator().run(tm, input);
+
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+    }
+
+    public void run(TM tm, String input) {
+        tm.loadInput(input);
+
+        // initial state
+        TMState current = tm.getState("0");
+
+        // main simulator loop, gets current symbol and transitions
+        while (true) {
+            char currentSymbol = tm.readTape();
+            TMTransition t = current.getTransitions("" + currentSymbol);
+
+            // machine halts if no valid transitions found
+            if (t == null) {
+                System.out.println("Halting: no transition.");
+                break;
+            }
+
+            tm.writeTape(t.getWriteSymbol().charAt(0));
+            tm.moveHead(t.getMoveDirection());
+            current = tm.getState(t.getTo());
+
+            if (current.getAcceptState()) {
+                System.out.println("Accepted.");
+                break;
+            }
+        }
+        // print output of machine
+        System.out.println("Final tape: " + tm.toString() + "\nTape Length:" +tm.getTapeLength() + "\nSum of symbols: " + tm.getSumOfSymbols());
     }
 }

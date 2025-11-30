@@ -6,7 +6,7 @@ import java.util.Set;
 public class TMState {
     private String name;
     private boolean isAccept;
-    private LinkedHashMap<Character, TMTransition> delta;
+    private LinkedHashMap<String, TMTransition> delta;
 
     public TMState(String name) {
         this.name = name;
@@ -28,14 +28,18 @@ public class TMState {
      *
      * @return true if accept state
      */
-    public boolean getAcceptState() { return this.isAccept; }
+    public boolean getAcceptState() {
+        return this.isAccept;
+    }
 
     /**
      * Gets the transitions for a particular character
      *
      * @return the TMTransition
      */
-    public TMTransition getTransitions(char c) { return delta.get(c); }
+    public TMTransition getTransitions(String c) {
+        return delta.get(c);
+    }
 
     /**
      * getter for the string label
@@ -46,14 +50,17 @@ public class TMState {
         return name;
     }
 
+    public Set<String> getTransitionSymbols() {
+        return delta.keySet();
+    }
+
     /**
      * Set the transitions for the state
      */
-    public void addTransitions(char c, TMTransition t) {
-        if(delta.containsKey(c)) {
+    public void addTransitionToState(String c, TMTransition t) {
+        if (delta.containsKey(c)) {
             delta.replace(c, t);
-        }
-        else {
+        } else {
             delta.put(c, t);
         }
     }

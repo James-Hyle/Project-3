@@ -13,36 +13,58 @@ public class TMTransition {
 
     /**
      * Updates the transition toState
+     * 
      * @param to
      */
-    public void updateToState(String to) { this.to = to; }
+    public void updateToState(String to) {
+        this.to = to;
+    }
 
     /**
      * Updates the transition write character
+     * 
      * @param writeSymbol
      */
-    public void updateWriteSymbol(String writeSymbol) { this.writeSymbol = writeSymbol; }
+    public void updateWriteSymbol(String writeSymbol) {
+        this.writeSymbol = writeSymbol;
+    }
+
     /**
      * Updates the transition move direction
+     * 
      * @param moveDirection
      */
-    public void updateMoveDirection(String moveDirection) { this.moveDirection = moveDirection; }
+    public void updateMoveDirection(String moveDirection) {
+        if (!moveDirection.equals("L") && !moveDirection.equals("R")) {
+            return;
+        }
+        this.moveDirection = moveDirection;
+    }
 
     /**
      * Gets the transition to state
+     * 
      * @return to state
      */
-    public String getTo() { return to; }
+    public String getTo() {
+        return to;
+    }
 
     /**
      * Gets the write symbol
+     * 
      * @return write symbol
      */
-    public String getWriteSymbol() { return writeSymbol; }
+    public String getWriteSymbol() {
+        return writeSymbol;
+    }
 
     /**
      * Gets the move direction
+     * 
      * @return move direction
      */
-    public String getMoveDirection() { return moveDirection; }
+    public String getMoveDirection() {
+        return moveDirection;
+    }
 }

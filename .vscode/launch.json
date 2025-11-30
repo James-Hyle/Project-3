@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Run File0.txt TM",
+            "request": "launch",
+            "mainClass": "TMSimulator",
+            "args": "file0.txt 111111"
+        },
+        {
+            "type": "java",
+            "name": "Run File2.txt TM",
+            "request": "launch",
+            "mainClass": "TMSimulator",
+            "args": "file2.txt "
+        },
+        {
+            "type": "java",
+            "name": "Run File5.txt TM",
+            "request": "launch",
+            "mainClass": "TMSimulator",
+            "args": "file5.txt "
+        }
+    ]
+}
