@@ -1,4 +1,4 @@
-package model;
+package tm;
 
 public class TMTransition {
     private String to;

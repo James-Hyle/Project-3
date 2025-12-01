@@ -1,6 +1,4 @@
-import model.TM;
-import model.TMState;
-import model.TMTransition;
+package tm;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
