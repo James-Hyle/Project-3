@@ -27,13 +27,13 @@ competitive implementation for the extra credit runtime competition.
 ## Compiling and Using
 
 ### To compile execute the following command in the project directory: 
-"javac ./model/*.java" followed by "javac TMSimulator.java"
+javac tm/*.java
 
 ### To run the program once compiled use the following: 
-File0: "java TMSimulator file0.txt 111111"
+File0: "java tm.TMSimulator file0.txt:
 
-File2: "java TMSimulator file2.txt"
+File2: "java tm.TMSimulator file2.txt"
 
-File5: "java TMSimulator file5.txt"
+File5: "java tm.TMSimulator file5.txt"
 
 ## Sources used
