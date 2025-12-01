@@ -56,8 +56,13 @@ public class TMSimulator {
 
                 tm.addTransitions(currentState, currentSymbol, nextState, writeSymbol, move);
             }
+            
+            String input = br.readLine();
 
-            String input = "";
+            if (input == null || input.trim().isEmpty()) {
+                input = "";
+            }
+
             new TMSimulator().run(tm, input);
 
         } catch (IOException e) {

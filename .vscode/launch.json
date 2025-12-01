@@ -6,7 +6,7 @@
             "name": "Run File0.txt TM",
             "request": "launch",
             "mainClass": "TMSimulator",
-            "args": "file0.txt 111111"
+            "args": "file0.txt "
         },
         {
             "type": "java",
