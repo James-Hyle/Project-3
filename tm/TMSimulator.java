@@ -16,6 +16,7 @@ public class TMSimulator {
         String filePath = args[0];
         String line;
         String comma = ",";
+        String input = ""; //initialize input string to empty
         ArrayList<String> transitions = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -30,7 +31,13 @@ public class TMSimulator {
             }
 
             while ((line = br.readLine()) != null) {
-                transitions.add(line);
+                //if the line has no comma's then it must be input string else add to transitions
+                if(!line.contains(comma)) {
+                    input = line;
+                }
+                else {
+                    transitions.add(line);
+                }
             }
 
             for (int s = 0; s < numStates; s++) {
@@ -54,12 +61,6 @@ public class TMSimulator {
 
                 tm.addTransitions(currentState, currentSymbol, nextState, writeSymbol, move);
             }
-            
-            String input = br.readLine();
-
-            if (input == null || input.trim().isEmpty()) {
-                input = "";
-            }
 
             new TMSimulator().run(tm, input);
 
@@ -77,6 +78,10 @@ public class TMSimulator {
     public void run(TM tm, String input) {
         tm.loadInput(input);
         int sum = 0;
+        //set initial sum to value of input string
+        for (char c : input.toCharArray()) {
+            sum = Character.getNumericValue(c) + sum;
+        }
 
         // initial state
         TMState current = tm.getState("0");
