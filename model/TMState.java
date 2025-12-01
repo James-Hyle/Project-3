@@ -8,6 +8,11 @@ public class TMState {
     private boolean isAccept;
     private LinkedHashMap<String, TMTransition> delta;
 
+    /**
+     * Create new Turing Machine state with the given name.
+     *
+     * @param name the name/label of the state
+     */
     public TMState(String name) {
         this.name = name;
         isAccept = false;

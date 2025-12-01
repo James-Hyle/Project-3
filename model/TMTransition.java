@@ -5,6 +5,13 @@ public class TMTransition {
     private String writeSymbol;
     private String moveDirection;
 
+    /**
+     * Constructor for transition set in Turing Machine
+     *
+     * @param to            destination state name
+     * @param writeSymbol   symbol to write to the tape
+     * @param moveDirection direction to move the tape head
+     */
     public TMTransition(String to, String writeSymbol, String moveDirection) {
         this.to = to;
         this.writeSymbol = writeSymbol;

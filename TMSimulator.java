@@ -9,6 +9,11 @@ import java.util.ArrayList;
 
 public class TMSimulator {
 
+    /**
+     * Main for Turing Machine simulation
+     *
+     * @param args command-line arguments
+     */
     public static void main(String[] args) {
         String filePath = args[0];
         String line;
@@ -60,6 +65,12 @@ public class TMSimulator {
         }
     }
 
+    /**
+     * Execute Turing Machine on input string
+     *
+     * @param tm    Turing Machine object
+     * @param input Input string to load onto the tape before execution
+     */
     public void run(TM tm, String input) {
         tm.loadInput(input);
         int sum = 0;
@@ -91,6 +102,7 @@ public class TMSimulator {
             }
         }
         // print output of machine
-        System.out.println("Final tape: " + tm.toString() + "\nTape Length:" +tm.getTapeLength() + "\nSum of symbols: " + sum);
+        System.out.println(
+                "Final tape: " + tm.toString() + "\nTape Length:" + tm.getTapeLength() + "\nSum of symbols: " + sum);
     }
 }
